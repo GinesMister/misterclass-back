@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-public class Comment {
+public class CommentDto {
 
     private long commentId;
 

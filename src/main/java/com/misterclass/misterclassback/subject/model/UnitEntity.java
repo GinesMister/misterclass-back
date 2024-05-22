@@ -32,4 +32,7 @@ public class UnitEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TheoryElementEntity> theoryElements;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TaskEntity> tasks;
 }

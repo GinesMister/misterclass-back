@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "subject")
 public class SubjectEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long subjectId;

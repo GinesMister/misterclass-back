@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +26,10 @@ public class TaskEntity {
     @Column(name = "description")
     private String description;
 
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="unit")
+    private UnitEntity unit;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentEntity> comments;
 }

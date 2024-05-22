@@ -31,4 +31,6 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
+
+    // TODO Agregar propiedades, tales como ´subjects´ y ´createdSubjects´
 }
