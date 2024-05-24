@@ -1,4 +1,4 @@
-package com.misterclass.misterclassback.features.subject.dto;
+package com.misterclass.misterclassback.features.subject.dto.subject;
 
 import com.misterclass.misterclassback.features.user.dto.UserDto;
 import lombok.AllArgsConstructor;
@@ -6,13 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SubjectDto {
+public class SimplifiedSubjectDto {
 
     private long subjectId;
 
@@ -20,7 +18,4 @@ public class SubjectDto {
 
     private UserDto teacher;
 
-    private List<UnitDto> units;
-
-    private List<UserDto> students;
 }

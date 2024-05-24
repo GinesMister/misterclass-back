@@ -16,9 +16,6 @@ public class UserGetDataController {
     @Autowired
     private UserGetDataService userGetDataService;
 
-    /* TODO Crear ResponseUserDto, para que esta función que se ejecutará al iniciar,
-        no devuelve información excesiva. Gracias.
-     */
     @GetMapping("user/getById")
     public ResponseEntity<UserDto> getUserById(@RequestParam String userId) {
         try {

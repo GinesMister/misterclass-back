@@ -1,6 +1,5 @@
 package com.misterclass.misterclassback.features.subject.service;
 
-import com.misterclass.misterclassback.features.subject.dto.UnitDto;
 import com.misterclass.misterclassback.features.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,9 @@ public class SubjectService {
     @Autowired
     private UserRepository userRepository;
 
-    public UnitDto getSubjectByUserId(String userId) {
-
-        return null;
-    }
+    // TODO función de crear asignatura
+    /*
+    TODO crear una asignatura para testear lo que devuelve el teacher del subject
+    al hacer getUser
+     */
 }

@@ -1,7 +1,9 @@
 package com.misterclass.misterclassback.features.subject.mapper;
 
-import com.misterclass.misterclassback.features.subject.dto.SubjectDto;
+import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
+import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.model.SubjectEntity;
+import com.misterclass.misterclassback.features.user.mapper.UserMapper;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -15,4 +17,7 @@ public interface SubjectMapper {
 
     List<SubjectDto> entityListToDtoList(List<SubjectEntity> subjectEntityList);
 
+    SimplifiedSubjectDto entityToSimplifiedDto(SubjectEntity subjectEntity);
+
+    SubjectEntity simplifiedDtoToEntity(SimplifiedSubjectDto simplifiedSubjectDto);
 }

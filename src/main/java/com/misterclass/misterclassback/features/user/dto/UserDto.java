@@ -1,6 +1,6 @@
 package com.misterclass.misterclassback.features.user.dto;
 
-import com.misterclass.misterclassback.features.subject.dto.SubjectDto;
+import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +18,5 @@ public class UserDto {
     private String surname;
     private String email;
     private String password;
-    private List<SubjectDto> subjectsSubscribed;
+    private List<SimplifiedSubjectDto> subjectsSubscribed;
 }
