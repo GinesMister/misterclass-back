@@ -21,6 +21,12 @@ public class SubjectEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long subjectId;
 
+    @Column(name = "access_code", nullable = false, unique = true)
+    private String accessCode;
+
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "color")
     private String color;
 

@@ -17,6 +17,10 @@ public class SubjectDto {
 
     private long subjectId;
 
+    private String accessCode;
+
+    private String name;
+
     private String color;
 
     private UserDto teacher;
