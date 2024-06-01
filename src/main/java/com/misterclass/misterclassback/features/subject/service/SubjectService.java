@@ -2,6 +2,7 @@ package com.misterclass.misterclassback.features.subject.service;
 
 import com.misterclass.misterclassback.exceptions.general.NotFoundException;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
+import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.mapper.SubjectMapper;
 import com.misterclass.misterclassback.features.subject.repository.SubjectRepository;
 import com.misterclass.misterclassback.features.user.repository.UserRepository;
@@ -54,5 +55,19 @@ public class SubjectService {
             code = hash.substring(i, 6 + i);
         }
         return code;
+    }
+
+    public boolean updateSubject(SubjectDto subjectToUpdate, long id) {
+        if (subjectToUpdate.getSubjectId() != id) return false;
+        if (subjectRepository.findById(subjectToUpdate.getSubjectId()).isEmpty()) return  false;
+        subjectRepository.save(subjectMapper.dtoToEntity(subjectToUpdate));
+        return true;
+    }
+
+    public boolean deleteSubjectById(long id) {
+        var subjectToDelete = subjectRepository.findById(id);
+        if (subjectToDelete.isEmpty()) return false;
+        subjectRepository.delete(subjectToDelete.get());
+        return true;
     }
 }

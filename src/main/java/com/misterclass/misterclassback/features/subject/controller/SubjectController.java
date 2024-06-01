@@ -2,6 +2,7 @@ package com.misterclass.misterclassback.features.subject.controller;
 
 import com.misterclass.misterclassback.exceptions.general.NotFoundException;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
+import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,18 @@ public class SubjectController {
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PutMapping("/subject/update")
+    public ResponseEntity<Boolean> updateSubject(@RequestBody SubjectDto subjectDto, @RequestParam long id) {
+        var result = subjectService.updateSubject(subjectDto, id);
+        return ResponseEntity.status(result ? HttpStatus.NOT_FOUND : HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/subject/delete")
+    public ResponseEntity<Boolean> deleteSubject(@RequestParam long id) {
+        if (!subjectService.deleteSubjectById(id))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        else return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
