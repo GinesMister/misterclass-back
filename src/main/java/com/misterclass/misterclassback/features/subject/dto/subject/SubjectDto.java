@@ -1,6 +1,6 @@
 package com.misterclass.misterclassback.features.subject.dto.subject;
 
-import com.misterclass.misterclassback.features.subject.dto.UnitDto;
+import com.misterclass.misterclassback.features.subject.dto.unit.UnitDto;
 import com.misterclass.misterclassback.features.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

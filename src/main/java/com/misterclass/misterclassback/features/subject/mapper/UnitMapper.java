@@ -1,6 +1,7 @@
 package com.misterclass.misterclassback.features.subject.mapper;
 
-import com.misterclass.misterclassback.features.subject.dto.UnitDto;
+import com.misterclass.misterclassback.features.subject.dto.unit.CreateUnitRequestDto;
+import com.misterclass.misterclassback.features.subject.dto.unit.UnitDto;
 import com.misterclass.misterclassback.features.subject.model.UnitEntity;
 import org.mapstruct.Mapper;
 
@@ -14,4 +15,6 @@ public interface UnitMapper {
     UnitEntity dtoToEntity(UnitDto unitDto);
 
     List<UnitDto> entityListToDtoList(List<UnitDto> unitDtoList);
+
+    CreateUnitRequestDto createDtoToDto(CreateUnitRequestDto createUnitRequestDto);
 }

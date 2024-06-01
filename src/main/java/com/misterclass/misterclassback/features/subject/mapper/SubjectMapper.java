@@ -20,4 +20,6 @@ public interface SubjectMapper {
     SimplifiedSubjectDto entityToSimplifiedDto(SubjectEntity subjectEntity);
 
     SubjectEntity simplifiedDtoToEntity(SimplifiedSubjectDto simplifiedSubjectDto);
+
+    List<SimplifiedSubjectDto> entityListToSimplifiedDtoList(List<SubjectEntity> subjectEntityList);
 }

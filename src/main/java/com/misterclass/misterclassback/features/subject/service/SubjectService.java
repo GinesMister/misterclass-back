@@ -1,5 +1,6 @@
 package com.misterclass.misterclassback.features.subject.service;
 
+import com.misterclass.misterclassback.exceptions.general.NotFoundException;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
 import com.misterclass.misterclassback.features.subject.mapper.SubjectMapper;
 import com.misterclass.misterclassback.features.subject.repository.SubjectRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class SubjectService {
@@ -27,6 +29,13 @@ public class SubjectService {
         // Insertar en BD
         subjectRepository.save(subjectToInsert);
         return newSubjectRequest;
+    }
+
+    public List<SimplifiedSubjectDto> getSubjectsByTeacherId(String teacherId) throws NotFoundException {
+        var subjects = subjectMapper.entityListToSimplifiedDtoList(subjectRepository.getSubjectsByTeacherId(teacherId));
+        if (subjects == null)
+            throw new NotFoundException();
+        return subjects;
     }
 
     private String createSubjectCode(SimplifiedSubjectDto newSubjectRequest) {
