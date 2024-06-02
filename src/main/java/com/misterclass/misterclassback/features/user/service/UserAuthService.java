@@ -36,15 +36,6 @@ public class UserAuthService {
 
     // TODO Lista de endpoints:
     /*
-    - Create de Units, TheoryElement y task.
-
-    - Update SIMPLE para TheoryElement y Task, Unit y Subjects.
-    - Delete SIMPLE para TheoryElement, Task, Unit y Subjects.
-
-    ANOTACIÓN: solo con el crear y update subject, ya lo puedo crear y actualizar TODO
-
-    (Una vez creado todo, ya se puede hacer una aplicación en front-end
-    funcional, en caso de que haya algo complicado, se puede crear un endpoint en el
-    back-end para simplificar la tarea en el front-end).
+    Subscribirse mediante código
      */
 }
