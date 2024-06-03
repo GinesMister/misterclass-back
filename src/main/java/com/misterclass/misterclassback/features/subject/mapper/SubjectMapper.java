@@ -5,6 +5,7 @@ import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.model.SubjectEntity;
 import com.misterclass.misterclassback.features.user.mapper.UserMapper;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -17,8 +18,10 @@ public interface SubjectMapper {
 
     List<SubjectDto> entityListToDtoList(List<SubjectEntity> subjectEntityList);
 
+    @Mapping(source = "teacher.userId", target = "teacherId")
     SimplifiedSubjectDto entityToSimplifiedDto(SubjectEntity subjectEntity);
 
+    @Mapping(source = "teacherId", target = "teacher.userId")
     SubjectEntity simplifiedDtoToEntity(SimplifiedSubjectDto simplifiedSubjectDto);
 
     List<SimplifiedSubjectDto> entityListToSimplifiedDtoList(List<SubjectEntity> subjectEntityList);

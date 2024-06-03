@@ -32,6 +32,7 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
+
     @ManyToMany(mappedBy = "students",
             cascade = {
                     CascadeType.PERSIST,

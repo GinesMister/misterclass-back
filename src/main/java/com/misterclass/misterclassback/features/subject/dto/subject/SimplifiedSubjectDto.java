@@ -20,6 +20,6 @@ public class SimplifiedSubjectDto {
 
     private String color;
 
-    private UserDto teacher;
+    private String teacherId;
 
 }

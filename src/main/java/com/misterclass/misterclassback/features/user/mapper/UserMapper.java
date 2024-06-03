@@ -5,6 +5,7 @@ import com.misterclass.misterclassback.features.user.dto.RegisterLoginRequestDto
 import com.misterclass.misterclassback.features.user.dto.UserDto;
 import com.misterclass.misterclassback.features.user.model.UserEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 

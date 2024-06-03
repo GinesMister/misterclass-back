@@ -24,7 +24,11 @@ public class UserAuthService {
         // Registrar
         if (!regLogRequest.isExists()) {
             if (userToLog.isPresent()) return false;
-            userRepository.save(reqUserEntity);
+            try {
+                userRepository.save(reqUserEntity);
+            } catch(Exception e) {
+                return false;
+            }
             return true;
         }
 

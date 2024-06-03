@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SubjectService {
@@ -43,7 +44,7 @@ public class SubjectService {
         // Coger todos los datos para generar un hash
         String allData = newSubjectRequest.getName()
                 + newSubjectRequest.getColor()
-                + newSubjectRequest.getTeacher()
+                + newSubjectRequest.getTeacherId()
                 + LocalDateTime.now();
 
         // Coger 6 dígitos del hash
@@ -59,8 +60,9 @@ public class SubjectService {
 
     public boolean updateSubject(SubjectDto subjectToUpdate, long id) {
         if (subjectToUpdate.getSubjectId() != id) return false;
-        if (subjectRepository.findById(subjectToUpdate.getSubjectId()).isEmpty()) return  false;
+        if (subjectRepository.findById(subjectToUpdate.getSubjectId()).isEmpty()) return false;
         subjectRepository.save(subjectMapper.dtoToEntity(subjectToUpdate));
+        System.out.println(subjectMapper.dtoToEntity(subjectToUpdate));
         return true;
     }
 
@@ -68,6 +70,20 @@ public class SubjectService {
         var subjectToDelete = subjectRepository.findById(id);
         if (subjectToDelete.isEmpty()) return false;
         subjectRepository.delete(subjectToDelete.get());
+        return true;
+    }
+
+    public SubjectDto getSubjectById(Long id) throws NotFoundException {
+        var subject = subjectRepository.findById(id);
+        if (subject.isEmpty()) throw new NotFoundException();
+        return subjectMapper.entityToDto(subject.get());
+    }
+
+    public boolean subscribeStudentToSubject(String userId, String subjectCode) {
+        var subject = subjectRepository.getSubjectByCode(subjectCode);
+        if (Objects.equals(subject.getTeacher().getUserId(), userId)) return false;
+        subject.getStudents().add(userRepository.findById(userId).get());
+        subjectRepository.save(subject);
         return true;
     }
 }

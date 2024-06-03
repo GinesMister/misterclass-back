@@ -22,6 +22,15 @@ public class SubjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(subjectService.createSubject(newSubject));
     }
 
+    @GetMapping("/subject/getById")
+    public ResponseEntity<SubjectDto> getSubjectById(@RequestParam Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(subjectService.getSubjectById(id));
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @GetMapping("/subject/getSubjectsByTeacherId")
     public ResponseEntity<List<SimplifiedSubjectDto>> getSubjectsByTeacherId(@RequestParam String teacherId) {
         try {
@@ -31,10 +40,16 @@ public class SubjectController {
         }
     }
 
+    @GetMapping("/subject/subscribeStudentToSubject")
+    public boolean subscribeStudentToSubject(@RequestParam String userId, @RequestParam String subjectCode) {
+        return subjectService.subscribeStudentToSubject(userId, subjectCode);
+    }
+
     @PutMapping("/subject/update")
     public ResponseEntity<Boolean> updateSubject(@RequestBody SubjectDto subjectDto, @RequestParam long id) {
         var result = subjectService.updateSubject(subjectDto, id);
-        return ResponseEntity.status(result ? HttpStatus.NOT_FOUND : HttpStatus.OK).build();
+        System.out.println(result);
+        return ResponseEntity.status(result ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping("/subject/delete")

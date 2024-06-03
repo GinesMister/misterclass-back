@@ -1,5 +1,6 @@
 package com.misterclass.misterclassback.features.subject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.misterclass.misterclassback.features.user.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
