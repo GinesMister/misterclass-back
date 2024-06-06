@@ -1,9 +1,13 @@
 package com.misterclass.misterclassback.features.subject.controller;
 
 import com.misterclass.misterclassback.exceptions.general.NotFoundException;
+import com.misterclass.misterclassback.features.subject.dto.TaskDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
+import com.misterclass.misterclassback.features.subject.dto.unit.UnitDto;
 import com.misterclass.misterclassback.features.subject.service.SubjectService;
+import com.misterclass.misterclassback.features.subject.service.TaskService;
+import com.misterclass.misterclassback.features.subject.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,10 @@ public class SubjectController {
 
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private UnitService unitService;
+    @Autowired
+    private TaskService taskService;
 
     @PostMapping("/subject/createSubject")
     public ResponseEntity<SimplifiedSubjectDto> createSubject(@RequestBody SimplifiedSubjectDto newSubject) {
@@ -49,17 +57,73 @@ public class SubjectController {
         }
     }
 
-    @PutMapping("/subject/update")
-    public ResponseEntity<Boolean> updateSubject(@RequestBody SubjectDto subjectDto, @RequestParam long id) {
-        var result = subjectService.updateSubject(subjectDto, id);
-        System.out.println(result);
-        return ResponseEntity.status(result ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
-    }
-
     @DeleteMapping("/subject/delete")
     public ResponseEntity<Boolean> deleteSubject(@RequestParam long id) {
         if (!subjectService.deleteSubjectById(id))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         else return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // UPDATE OF SUBJECT
+    // UNIT
+    @PutMapping("subject/unit/create")
+    public ResponseEntity<Void> createUnit(@RequestParam long subjectId, @RequestBody UnitDto unit) {
+        try {
+            unitService.createUnit(subjectId, unit);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("subject/unit/update")
+    public ResponseEntity<Void> updateUnit(@RequestParam long unitId, @RequestBody UnitDto unit) {
+        try {
+            unitService.updateUnit(unitId, unit);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @DeleteMapping("subject/unit/delete")
+    public ResponseEntity<Void> deleteUnit(@RequestParam long unitId) {
+        try {
+            unitService.deleteUnit(unitId);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    // TASK
+    @PutMapping("subject/task/create")
+    public ResponseEntity<Void> createTask(@RequestParam long unitId, @RequestBody TaskDto task) {
+        try {
+            taskService.createTask(unitId, task);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("subject/task/update")
+    public ResponseEntity<Void> updateTask(@RequestParam long taskId, @RequestBody TaskDto task) {
+        try {
+            taskService.updateTask(taskId, task);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @DeleteMapping("subject/task/delete")
+    public ResponseEntity<Void> deleteTask(@RequestParam long taskId) {
+        try {
+            taskService.deleteTask(taskId);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -25,6 +26,9 @@ public class TaskEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "deadline")
+    private LocalDateTime deadline;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="unit")

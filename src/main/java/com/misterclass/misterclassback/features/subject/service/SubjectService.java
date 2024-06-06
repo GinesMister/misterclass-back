@@ -58,14 +58,6 @@ public class SubjectService {
         return code;
     }
 
-    public boolean updateSubject(SubjectDto subjectToUpdate, long id) {
-        if (subjectToUpdate.getSubjectId() != id) return false;
-        if (subjectRepository.findById(subjectToUpdate.getSubjectId()).isEmpty()) return false;
-        subjectRepository.save(subjectMapper.dtoToEntity(subjectToUpdate));
-        System.out.println(subjectMapper.dtoToEntity(subjectToUpdate));
-        return true;
-    }
-
     public boolean deleteSubjectById(long id) {
         var subjectToDelete = subjectRepository.findById(id);
         if (subjectToDelete.isEmpty()) return false;

@@ -19,8 +19,6 @@ public class UnitDto {
 
     private String title;
 
-    private String subtitle;
-
     private List<TheoryElementDto> theoryElements;
 
     private List<TaskDto> tasks;
