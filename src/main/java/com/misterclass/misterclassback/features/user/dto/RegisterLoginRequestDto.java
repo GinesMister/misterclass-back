@@ -1,15 +1,16 @@
 package com.misterclass.misterclassback.features.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterLoginRequestDto extends UserDto {
+public class RegisterLoginRequestDto {
+
+    private String userId;
+
+    private String password;
 
     private boolean exists;
 

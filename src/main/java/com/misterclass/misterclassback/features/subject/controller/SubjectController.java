@@ -42,7 +42,11 @@ public class SubjectController {
 
     @GetMapping("/subject/subscribeStudentToSubject")
     public boolean subscribeStudentToSubject(@RequestParam String userId, @RequestParam String subjectCode) {
-        return subjectService.subscribeStudentToSubject(userId, subjectCode);
+        try {
+            return subjectService.subscribeStudentToSubject(userId, subjectCode);
+        } catch (NotFoundException e) {
+            return false;
+        }
     }
 
     @PutMapping("/subject/update")

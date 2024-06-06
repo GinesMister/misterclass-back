@@ -79,8 +79,10 @@ public class SubjectService {
         return subjectMapper.entityToDto(subject.get());
     }
 
-    public boolean subscribeStudentToSubject(String userId, String subjectCode) {
+    public boolean subscribeStudentToSubject(String userId, String subjectCode) throws NotFoundException {
         var subject = subjectRepository.getSubjectByCode(subjectCode);
+        if (subject == null) throw new NotFoundException();
+
         if (Objects.equals(subject.getTeacher().getUserId(), userId)) return false;
         subject.getStudents().add(userRepository.findById(userId).get());
         subjectRepository.save(subject);
