@@ -2,13 +2,11 @@ package com.misterclass.misterclassback.features.user.dto;
 
 import lombok.*;
 
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterLoginRequestDto {
-
-    private String userId;
+public class RegisterLoginRequestDto extends UserDto {
 
     private String password;
 
