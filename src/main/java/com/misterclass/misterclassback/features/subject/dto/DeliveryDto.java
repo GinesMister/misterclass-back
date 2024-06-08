@@ -5,21 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TheoryElementDto {
+public class DeliveryDto {
 
-    private long theoryElementId;
+    private long deliveryId;
 
-    private String title;
+    private String delivererId;
 
-    private String description;
+    private LocalDateTime deliveryDate;
 
-    private String filePath;
-
-    private List<CommentDto> comments;
+    private String filepath;
 }

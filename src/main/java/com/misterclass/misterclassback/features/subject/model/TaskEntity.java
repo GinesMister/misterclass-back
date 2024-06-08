@@ -36,4 +36,7 @@ public class TaskEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentEntity> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DeliveryEntity> deliveries;
 }

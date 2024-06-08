@@ -30,6 +30,8 @@ public class TheoryElementEntity {
     @JoinColumn(name="unit")
     private UnitEntity unit;
 
+    private String filePath;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentEntity> comments;
 }

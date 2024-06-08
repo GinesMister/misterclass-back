@@ -3,7 +3,6 @@ package com.misterclass.misterclassback.features.subject.mapper;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.model.SubjectEntity;
-import com.misterclass.misterclassback.features.user.mapper.UserMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

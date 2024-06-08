@@ -5,6 +5,7 @@ import com.misterclass.misterclassback.features.subject.dto.TaskDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.dto.unit.UnitDto;
+import com.misterclass.misterclassback.features.subject.service.DeliveryService;
 import com.misterclass.misterclassback.features.subject.service.SubjectService;
 import com.misterclass.misterclassback.features.subject.service.TaskService;
 import com.misterclass.misterclassback.features.subject.service.UnitService;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,8 @@ public class SubjectController {
     private UnitService unitService;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private DeliveryService deliveryService;
 
     @PostMapping("/subject/createSubject")
     public ResponseEntity<SimplifiedSubjectDto> createSubject(@RequestBody SimplifiedSubjectDto newSubject) {
@@ -124,6 +129,20 @@ public class SubjectController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    // DELIVER
+    @PutMapping("subject/delivery/create")
+    public ResponseEntity<Void> createDelivery(@RequestParam long taskId, @RequestParam String delivererId, @RequestParam MultipartFile file) throws IOException {
+        try {
+            deliveryService.createDelivery(taskId, delivererId, file);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            throw e;
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

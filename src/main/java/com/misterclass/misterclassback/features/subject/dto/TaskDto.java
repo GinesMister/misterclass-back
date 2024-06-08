@@ -22,5 +22,7 @@ public class TaskDto {
 
     private String description;
 
+    private List<DeliveryDto> deliveries;
+
     private List<CommentDto> comments;
 }
