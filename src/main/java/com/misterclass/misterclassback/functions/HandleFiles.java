@@ -1,9 +1,13 @@
 package com.misterclass.misterclassback.functions;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HandleFiles {
 
@@ -12,22 +16,20 @@ public class HandleFiles {
     public static String uploadFile(MultipartFile file, String dirName) throws IOException {
         if (file.isEmpty()) throw new IOException("No file found");
 
-        String dirPath = ROOTPAHT + "deliveries/" + dirName + "/";
+        String uploadDir = ROOTPAHT + "deliveries/" + dirName + "/";
+        Path uploadPath = Paths.get(uploadDir);
 
-        File uploadDirFile = new File(dirPath);
-        if (!uploadDirFile.exists() && uploadDirFile.mkdirs()) {
-            throw new IOException("Failed to create directory " + dirPath);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
         }
 
-        // Esto es lo que falla
-        String filePath = dirPath + file.getOriginalFilename();
-        File dest = new File(filePath);
-        try {
-            file.transferTo(dest);
-        } catch (IOException e) {
-            throw new IOException("Failed to save file " + filePath, e);
-        }
+        Path filePath = uploadPath.resolve(file.getOriginalFilename());
+        Files.copy(file.getInputStream(), filePath);
 
-        return filePath;
+        // Returns the download URL
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/" + uploadDir)
+                .path(file.getOriginalFilename())
+                .toUriString();
     }
 }

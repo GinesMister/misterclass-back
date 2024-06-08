@@ -40,11 +40,13 @@ public class DeliveryService {
         deliver.setDelivererId(delivererId);
         var deliverEntity = deliveryMapper.dtoToEntity(deliver);
         if (file.isEmpty()) {
-            deliveryRepository.save(deliverEntity);
+            task.get().getDeliveries().add(deliverEntity);
+            taskRepository.save(task.get());
             return;
         }
 
         deliverEntity.setFilePath(HandleFiles.uploadFile(file, Long.toString(taskId)));
-        deliveryRepository.save(deliverEntity);
+        task.get().getDeliveries().add(deliverEntity);
+        taskRepository.save(task.get());
     }
 }

@@ -2,13 +2,13 @@ package com.misterclass.misterclassback.features.subject.mapper;
 
 import com.misterclass.misterclassback.features.subject.dto.DeliveryDto;
 import com.misterclass.misterclassback.features.subject.model.DeliveryEntity;
-import com.misterclass.misterclassback.features.user.dto.UserDto;
+import com.misterclass.misterclassback.features.user.mapper.UserMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UserDto.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface DeliveryMapper {
 
     @Mapping(source = "deliverer.userId", target = "delivererId")

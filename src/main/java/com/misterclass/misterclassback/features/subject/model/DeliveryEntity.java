@@ -20,7 +20,7 @@ public class DeliveryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long deliveryId;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deliverer_id")
     private UserEntity deliverer;
 
@@ -30,7 +30,7 @@ public class DeliveryEntity {
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;
 }
