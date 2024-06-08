@@ -30,13 +30,13 @@ public class TaskEntity {
     @Column(name = "deadline")
     private LocalDateTime deadline;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="unit")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id")
     private UnitEntity unit;
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentEntity> comments;
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeliveryEntity> deliveries;
 }

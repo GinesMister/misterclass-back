@@ -27,11 +27,11 @@ public class CommentEntity {
     @Column(name = "date")
     private LocalDate date;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="user")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private UserEntity sender;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;
 

@@ -26,8 +26,8 @@ public class UnitEntity {
     @Column(name = "subtitle")
     private String subtitle;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "teacher")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id")
     private SubjectEntity subject;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

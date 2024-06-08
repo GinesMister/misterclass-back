@@ -26,8 +26,8 @@ public class TheoryElementEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="unit")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="unit_id")
     private UnitEntity unit;
 
     private String filePath;
