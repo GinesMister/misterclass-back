@@ -39,8 +39,8 @@ public class HandleFiles {
         System.out.println(file.getOriginalFilename());
         Files.copy(file.getInputStream(), filePath);
 
-        // Returns the path to download
-        return uploadDir + file.getOriginalFilename();
+        // Returns the name
+        return file.getOriginalFilename();
     }
 
     public static Resource getFileByName(String filename, long id, EUploadRoots path) throws MalformedURLException, NotFoundException {
