@@ -19,7 +19,7 @@ public class TheoryElementDto {
 
     private String description;
 
-    private String filePath;
+    private String filename;
 
     private List<CommentDto> comments;
 }

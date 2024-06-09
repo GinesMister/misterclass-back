@@ -46,8 +46,11 @@ public class DeliveryService {
             return;
         }
 
-        deliverEntity.setFilePath(HandleFiles.uploadFile(file, Long.toString(taskId), EUploadRoots.DELIVERY_PATH));
-        task.get().getDeliveries().add(deliverEntity);
+        var deliveryEntitySaved = deliveryRepository.save(deliverEntity);
+        String deliverId = Long.toString(deliveryEntitySaved.getDeliveryId());
+        deliveryEntitySaved.setFilename(HandleFiles.uploadFile(file, deliverId, EUploadRoots.DELIVERY_PATH));
+        task.get().getDeliveries().add(deliveryEntitySaved);
         taskRepository.save(task.get());
+        deliveryRepository.save(deliveryEntitySaved);
     }
 }

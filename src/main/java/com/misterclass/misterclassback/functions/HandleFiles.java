@@ -19,6 +19,7 @@ public class HandleFiles {
 
     private final static String ROOT_PATH = "userfiles/";
     private final static String DELIVERY_PATH = ROOT_PATH + "deliveries/";
+    private final static String THEORY_PATH = ROOT_PATH + "theory/";
 
     public static String uploadFile(MultipartFile file, String dirName, EUploadRoots path) throws IOException {
         if (file.isEmpty()) throw new IOException("No file found");
@@ -26,8 +27,11 @@ public class HandleFiles {
         String uploadDir;
         switch (path) {
             case DELIVERY_PATH -> uploadDir = DELIVERY_PATH;
+            case THEORY_PATH -> uploadDir = THEORY_PATH;
             default -> uploadDir = ROOT_PATH;
         }
+
+        uploadDir += dirName;
 
         Path uploadPath = Paths.get(uploadDir);
 
@@ -47,6 +51,7 @@ public class HandleFiles {
         String fileDir;
         switch (path) {
             case DELIVERY_PATH -> fileDir = DELIVERY_PATH;
+            case THEORY_PATH -> fileDir = THEORY_PATH;
             default -> fileDir = ROOT_PATH;
         }
         fileDir += id;

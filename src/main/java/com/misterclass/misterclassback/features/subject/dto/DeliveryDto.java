@@ -19,5 +19,5 @@ public class DeliveryDto {
 
     private LocalDateTime deliveryDate;
 
-    private String filePath;
+    private String filename;
 }

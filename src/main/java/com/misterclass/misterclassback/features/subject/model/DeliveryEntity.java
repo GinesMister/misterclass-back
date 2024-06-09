@@ -20,8 +20,8 @@ public class DeliveryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long deliveryId;
 
-    @Column(name = "file_path")
-    private String filePath;
+    @Column(name = "file_name")
+    private String filename;
 
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;

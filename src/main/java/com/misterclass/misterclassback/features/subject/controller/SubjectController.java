@@ -2,13 +2,11 @@ package com.misterclass.misterclassback.features.subject.controller;
 
 import com.misterclass.misterclassback.exceptions.general.NotFoundException;
 import com.misterclass.misterclassback.features.subject.dto.TaskDto;
+import com.misterclass.misterclassback.features.subject.dto.TheoryElementDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SimplifiedSubjectDto;
 import com.misterclass.misterclassback.features.subject.dto.subject.SubjectDto;
 import com.misterclass.misterclassback.features.subject.dto.unit.UnitDto;
-import com.misterclass.misterclassback.features.subject.service.DeliveryService;
-import com.misterclass.misterclassback.features.subject.service.SubjectService;
-import com.misterclass.misterclassback.features.subject.service.TaskService;
-import com.misterclass.misterclassback.features.subject.service.UnitService;
+import com.misterclass.misterclassback.features.subject.service.*;
 import com.misterclass.misterclassback.functions.EUploadRoots;
 import com.misterclass.misterclassback.functions.HandleFiles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,8 @@ public class SubjectController {
     private TaskService taskService;
     @Autowired
     private DeliveryService deliveryService;
+    @Autowired
+    private TheoryElementService theoryElementService;
 
     @PostMapping("/subject/createSubject")
     public ResponseEntity<SimplifiedSubjectDto> createSubject(@RequestBody SimplifiedSubjectDto newSubject) {
@@ -152,7 +152,7 @@ public class SubjectController {
     }
 
     @GetMapping("/subject/delivery/files/{deliverId}/{filename:.+}")
-    public ResponseEntity<Resource> downloadFileByPath(@PathVariable long deliverId, @PathVariable String filename) {
+    public ResponseEntity<Resource> downloadDeliveryFileByPath(@PathVariable long deliverId, @PathVariable String filename) {
         try {
             Resource resource = HandleFiles.getFileByName(filename, deliverId, EUploadRoots.DELIVERY_PATH);
             String contentType = "application/octet-stream";
@@ -170,4 +170,35 @@ public class SubjectController {
         }
     }
 
+    // THEORY ELEMENT
+    @PutMapping("subject/theoryelement/create")
+    public ResponseEntity<Void> createTheoryElement(@RequestParam long unitId, @RequestParam MultipartFile file, @RequestBody TheoryElementDto theoryElement) {
+        try {
+            theoryElementService.createTheoryElement(unitId, theoryElement, file);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/subject/theoryelement/files/{theoryElementId}/{filename:.+}")
+    public ResponseEntity<Resource> downloadTheoryElementFileByPath(@PathVariable long theoryElementId, @PathVariable String filename) {
+        try {
+            Resource resource = HandleFiles.getFileByName(filename, theoryElementId, EUploadRoots.THEORY_PATH);
+            String contentType = "application/octet-stream";
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(resource.contentLength())
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .body(resource);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
