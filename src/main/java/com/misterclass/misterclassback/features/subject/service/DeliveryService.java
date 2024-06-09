@@ -7,6 +7,7 @@ import com.misterclass.misterclassback.features.subject.mapper.TaskMapper;
 import com.misterclass.misterclassback.features.subject.repository.DeliveryRepository;
 import com.misterclass.misterclassback.features.subject.repository.TaskRepository;
 import com.misterclass.misterclassback.features.user.repository.UserRepository;
+import com.misterclass.misterclassback.functions.EUploadRoots;
 import com.misterclass.misterclassback.functions.HandleFiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class DeliveryService {
             return;
         }
 
-        deliverEntity.setFilePath(HandleFiles.uploadFile(file, Long.toString(taskId)));
+        deliverEntity.setFilePath(HandleFiles.uploadFile(file, Long.toString(taskId), EUploadRoots.DELIVERY_PATH));
         task.get().getDeliveries().add(deliverEntity);
         taskRepository.save(task.get());
     }
