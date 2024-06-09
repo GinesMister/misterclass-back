@@ -8,10 +8,12 @@ import com.misterclass.misterclassback.features.subject.repository.UnitRepositor
 import com.misterclass.misterclassback.functions.EUploadRoots;
 import com.misterclass.misterclassback.functions.HandleFiles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+@Service
 public class TheoryElementService {
 
     @Autowired
