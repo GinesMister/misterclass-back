@@ -20,6 +20,8 @@ public class TaskDto {
 
     private LocalDateTime deadline;
 
+    private String filename;
+
     private String description;
 
     private List<DeliveryDto> deliveries;

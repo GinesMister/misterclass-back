@@ -26,19 +26,19 @@ public class TheoryElementService {
     public void createTheoryElement(long unitId, TheoryElementDto theoryElement, MultipartFile file) throws NotFoundException, IOException {
         var unitToAddTheory = unitRepository.findById(unitId);
         if (unitToAddTheory.isEmpty()) throw new NotFoundException();
-        unitToAddTheory.get().getTheoryElements().add(theoryElementMapper.dtoToEntity(theoryElement));
 
         var theoryElementEntity = theoryElementMapper.dtoToEntity(theoryElement);
         if (file.isEmpty()) {
-            unitToAddTheory.get().getTheoryElements().add(theoryElementEntity);
             unitRepository.save(unitToAddTheory.get());
+            return;
         }
 
         var theoryElementEntitySaved = theoryElementRepository.save(theoryElementEntity);
+
         String fileDir = Long.toString(theoryElementEntitySaved.getTheoryElementId());
         theoryElementEntitySaved.setFilename(HandleFiles.uploadFile(file, fileDir, EUploadRoots.THEORY_PATH));
+
         unitToAddTheory.get().getTheoryElements().add(theoryElementEntitySaved);
-        unitRepository.save(unitToAddTheory.get());
         theoryElementRepository.save(theoryElementEntitySaved);
     }
 }

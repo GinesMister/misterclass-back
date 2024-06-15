@@ -26,6 +26,9 @@ public class DeliveryEntity {
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
 
+    @Column(name = "mark")
+    private Double mark;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deliverer_id")
     private UserEntity deliverer;

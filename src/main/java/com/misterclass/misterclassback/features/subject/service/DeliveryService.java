@@ -47,10 +47,20 @@ public class DeliveryService {
         }
 
         var deliveryEntitySaved = deliveryRepository.save(deliverEntity);
-        String deliverId = Long.toString(deliveryEntitySaved.getDeliveryId());
-        deliveryEntitySaved.setFilename(HandleFiles.uploadFile(file, deliverId, EUploadRoots.DELIVERY_PATH));
+
+        String deliveryId = Long.toString(deliveryEntitySaved.getDeliveryId());
+        deliveryEntitySaved.setFilename(HandleFiles.uploadFile(file, deliveryId, EUploadRoots.DELIVERY_PATH));
+
         task.get().getDeliveries().add(deliveryEntitySaved);
-        taskRepository.save(task.get());
         deliveryRepository.save(deliveryEntitySaved);
+    }
+
+    public void markDelivery(long deliveryId, double mark) throws NotFoundException {
+        var deliveryToMark = deliveryRepository.findById(deliveryId);
+        if (deliveryToMark.isEmpty()) {
+            throw new NotFoundException();
+        }
+        deliveryToMark.get().setMark(mark);
+        deliveryRepository.save(deliveryToMark.get());
     }
 }

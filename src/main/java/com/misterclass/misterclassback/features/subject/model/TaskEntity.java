@@ -27,6 +27,9 @@ public class TaskEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "filename")
+    private String filename;
+
     @Column(name = "deadline")
     private LocalDateTime deadline;
 

@@ -109,12 +109,14 @@ public class SubjectController {
 
     // TASK
     @PutMapping("subject/task/create")
-    public ResponseEntity<Void> createTask(@RequestParam long unitId, @RequestBody TaskDto task) {
+    public ResponseEntity<Void> createTask(@RequestParam long unitId, @RequestPart TaskDto task, @RequestPart MultipartFile file) {
         try {
-            taskService.createTask(unitId, task);
+            taskService.createTask(unitId, task, file);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -138,6 +140,25 @@ public class SubjectController {
         }
     }
 
+    @GetMapping("/subject/task/files/{taskId}/{filename:.+}")
+    public ResponseEntity<Resource> downloadTaskFileByPath(@PathVariable long taskId, @PathVariable String filename) {
+        try {
+            Resource resource = HandleFiles.getFileByName(filename, taskId, EUploadRoots.TASK_PATH);
+            String contentType = "application/octet-stream";
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(resource.contentLength())
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .body(resource);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     // DELIVER
     @PutMapping("subject/delivery/create")
     public ResponseEntity<Void> createDelivery(@RequestParam long taskId, @RequestParam String delivererId, @RequestParam MultipartFile file) throws IOException {
@@ -151,10 +172,20 @@ public class SubjectController {
         }
     }
 
-    @GetMapping("/subject/delivery/files/{deliverId}/{filename:.+}")
-    public ResponseEntity<Resource> downloadDeliveryFileByPath(@PathVariable long deliverId, @PathVariable String filename) {
+    @PutMapping("subject/delivery/mark")
+    public ResponseEntity<Void> markDelivery(@RequestParam long deliveryId, @RequestParam double mark) {
         try {
-            Resource resource = HandleFiles.getFileByName(filename, deliverId, EUploadRoots.DELIVERY_PATH);
+            deliveryService.markDelivery(deliveryId, mark);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("/subject/delivery/files/{deliveryId}/{filename:.+}")
+    public ResponseEntity<Resource> downloadDeliveryFileByPath(@PathVariable long deliveryId, @PathVariable String filename) {
+        try {
+            Resource resource = HandleFiles.getFileByName(filename, deliveryId, EUploadRoots.DELIVERY_PATH);
             String contentType = "application/octet-stream";
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
@@ -172,7 +203,7 @@ public class SubjectController {
 
     // THEORY ELEMENT
     @PutMapping("subject/theoryelement/create")
-    public ResponseEntity<Void> createTheoryElement(@RequestParam long unitId, @RequestParam MultipartFile file, @RequestBody TheoryElementDto theoryElement) {
+    public ResponseEntity<Void> createTheoryElement(@RequestParam long unitId, @RequestPart MultipartFile file, @RequestPart TheoryElementDto theoryElement) {
         try {
             theoryElementService.createTheoryElement(unitId, theoryElement, file);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -183,7 +214,7 @@ public class SubjectController {
         }
     }
 
-    @GetMapping("/subject/theoryelement/files/{theoryElementId}/{filename:.+}")
+    @GetMapping("/subject/theoryElement/files/{theoryElementId}/{filename:.+}")
     public ResponseEntity<Resource> downloadTheoryElementFileByPath(@PathVariable long theoryElementId, @PathVariable String filename) {
         try {
             Resource resource = HandleFiles.getFileByName(filename, theoryElementId, EUploadRoots.THEORY_PATH);

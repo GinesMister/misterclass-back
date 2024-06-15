@@ -17,6 +17,8 @@ public class DeliveryDto {
 
     private String delivererId;
 
+    private Double mark;
+
     private LocalDateTime deliveryDate;
 
     private String filename;
